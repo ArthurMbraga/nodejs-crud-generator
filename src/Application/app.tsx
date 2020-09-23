@@ -1,12 +1,8 @@
-import raw from "raw.macro";
 import React, { useRef } from "react";
 import { Button } from "react-bootstrap";
 import { ExportBox, FunctionBox, EntityBuilder } from "./Components";
-import Handlebars from "handlebars";
 import { Title } from "./styles";
 import { File, Files, Methods, Entity, Field, Settings } from "./types";
-
-const txt = raw("../FilesGenerators/Models/knex.hbs");
 
 const INITIAL_SETTINGS = {
   files: {},
@@ -42,8 +38,7 @@ const App: React.FC = () => {
     //    console.log(reader.result);
     //};
     //reader.readAsText(t);
-    const template = Handlebars.compile(txt);
-    console.log(template({ ...settings.current, ...entity.current }));
+    console.log();
   }
 
   return (
