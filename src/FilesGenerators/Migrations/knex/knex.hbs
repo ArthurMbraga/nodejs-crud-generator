@@ -1,0 +1,13 @@
+exports.up = function (knex) {
+  return knex.schema
+    .createTable("{{entity.tableName}}", function (table) {
+      {{#each entity.fields}}
+      table.{{type}}("{{name}}"){{#if required}}.notNullable(){{/if}}{{#if default}}.defaultTo({{default}}){{/if}};
+      {{/each}}
+    });
+};
+
+exports.down = function (knex) {
+  return knex.schema
+    .dropTable("{{entity.tableName}}");
+};

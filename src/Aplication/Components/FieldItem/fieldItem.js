@@ -3,17 +3,19 @@ import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { StyledButton, StyledCheckbox } from "./styled";
 import { Select } from "../../../Components";
+import { BsFillTrashFill, BsPlus } from "react-icons/bs";
+import { IconContext } from "react-icons/lib";
 
 const INITIAL_STATE = {
   id: 0,
   name: "",
   type: "",
   required: false,
-  default: undefined,
+  default: "",
 };
 
 function FieldItem(props) {
-  const currentId = useRef(0);
+  const currentId = useRef(props.startId ? props.startId : 0);
   const [field, setField] = useState(INITIAL_STATE);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function FieldItem(props) {
     if (props.submitNew) props.submitNew(fieldCopy);
     currentId.current++;
 
-    setField(INITIAL_STATE);
+    setField({ ...INITIAL_STATE, type: fieldCopy.type, id: currentId.current });
   }
 
   function handleDelete() {
@@ -78,7 +80,14 @@ function FieldItem(props) {
         )}
       </div>
       <div className="mr-2">
-        <StyledCheckbox type="checkbox" label="Required" className="form" />
+        <Form.Group controlId={`required-${field.id}`}>
+          <StyledCheckbox
+            type="checkbox"
+            label="Required"
+            className="form"
+            value={true}
+          />
+        </Form.Group>
       </div>
 
       {props.addMode ? (
@@ -86,8 +95,10 @@ function FieldItem(props) {
           +
         </StyledButton>
       ) : (
-        <StyledButton variant="danger" onClick={handleDelete}>
-          x
+        <StyledButton variant="outline-light" onClick={handleDelete}>
+          <IconContext.Provider value={{ color: "#666" }}>
+            <BsFillTrashFill />
+          </IconContext.Provider>
         </StyledButton>
       )}
     </div>
@@ -100,6 +111,7 @@ FieldItem.propsTypes = {
   onDelete: PropTypes.func,
   addMode: PropTypes.bool,
   fieldData: PropTypes.object,
+  startId: PropTypes.integer,
 };
 
 export default FieldItem;

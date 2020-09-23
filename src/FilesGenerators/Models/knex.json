@@ -1,0 +1,41 @@
+{
+  "text": 
+  const connection = require('../database/connection');
+  
+  module.exports = {
+  {{#if methods.create}}
+  async create({{entity.name}}) {
+    const result = await connection('{{entity.tableName}}')
+      .insert({{entity.name}});
+    return result;
+  },
+
+  {{/if}}
+  {{#if methods.read}}
+  async getById(id) {
+    const result = await connection('{{entity.tableName}}')
+      .where({ id })
+      .select('*');
+    return result;
+  },
+
+  {{/if}}
+  {{#if methods.update}}
+  async updateById(id, {{entity.name}}) {
+    const result = await connection('{{entity.tableName}}')
+      .where({id})
+      .update({{entity.name}});
+    return result;
+  },
+
+  {{/if}}
+  {{#if methods.delete}}
+  async deleteById(id) {
+    const result = await connection('{{entity.tableName}}')
+      .where({id})
+      .delete();
+    return result;
+  },
+  {{/if}}
+
+};
