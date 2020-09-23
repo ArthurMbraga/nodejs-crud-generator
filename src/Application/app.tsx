@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
-import { ExportBox, FunctionBox, EntityBuilder } from "./Components";
-import { Title } from "./styles";
-import { Button } from "react-bootstrap";
-import Handlebars from "handlebars";
 import raw from "raw.macro";
+import React, { useRef } from "react";
+import { Button } from "react-bootstrap";
+import { ExportBox, FunctionBox, EntityBuilder } from "./Components";
+import Handlebars from "handlebars";
+import { Title } from "./styles";
+import { File, Files, Methods, Entity, Field, Settings } from "./types";
+
 const txt = raw("../FilesGenerators/Models/knex.hbs");
 
 const INITIAL_SETTINGS = {
@@ -11,23 +13,23 @@ const INITIAL_SETTINGS = {
   methods: { create: true, read: true, update: true, delete: true },
 };
 
-function App() {
-  const settings = useRef(INITIAL_SETTINGS);
-  const entity = useRef();
+const App: React.FC = () => {
+  const settings = useRef<Settings>(INITIAL_SETTINGS);
+  const entity = useRef<Entity>();
 
-  function onMethodsChanged(obj) {
+  function onMethodsChanged(obj: Methods) {
     const newSettings = { ...settings.current };
     newSettings.methods = { ...newSettings.methods, ...obj };
     settings.current = newSettings;
   }
 
-  function onFilesChanged(obj) {
+  function onFilesChanged(obj: Files) {
     const newSettings = { ...settings.current };
     newSettings.files = { ...newSettings.files, ...obj };
     settings.current = newSettings;
   }
 
-  function onEntityChanged(obj) {
+  function onEntityChanged(obj: Entity) {
     entity.current = obj;
   }
 
@@ -93,6 +95,6 @@ function App() {
       </Button>
     </div>
   );
-}
+};
 
 export default App;
