@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
 import { FieldItem } from "..";
+import { ShadowBox } from "../../../Components";
 import { Entity, EntityHolder, Field } from "../../types";
 
 const INITIAL_FIELDS: Fields = {
@@ -68,30 +69,34 @@ const EntityBuilder: React.FC<Props> = (props) => {
   }, [fields, entity, props]);
 
   return (
-    <div>
+    <ShadowBox>
       <div className="d-flex flex-row">
         <div className="mr-2">
+          <Form.Label>Entity Name:</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Entity Name"
+            placeholder="Enter entity Name"
             value={entity.name}
             name="name"
             onChange={handleUpdateEntity}
           />
-          <Form.Text className="text-muted">Ex: product</Form.Text>
+          <Form.Text className="text-muted">Name (Ex: product)</Form.Text>
         </div>
         <div className="mr-2">
+          <Form.Label>Table name:</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Table Name"
+            placeholder="Enter table Name"
             value={entity.tableName}
             name="tableName"
             onChange={handleUpdateEntity}
           />
-          <Form.Text className="text-muted">Ex: products</Form.Text>
+          <Form.Text className="text-muted">Table (Ex: products)</Form.Text>
         </div>
       </div>
+      <Form.Label className="mt-2">New Field:</Form.Label>
       <FieldItem addMode submitNew={addField} startId={1} />
+      <Form.Label className="mt-3">Fields:</Form.Label>
       {Object.keys(fields)
         .reverse()
         .map((key) => {
@@ -105,7 +110,7 @@ const EntityBuilder: React.FC<Props> = (props) => {
             />
           );
         })}
-    </div>
+    </ShadowBox>
   );
 };
 

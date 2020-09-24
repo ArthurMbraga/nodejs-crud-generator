@@ -12,3 +12,7 @@ code {
     monospace;
 }
 
+#root {
+  overflow: auto;
+}
+

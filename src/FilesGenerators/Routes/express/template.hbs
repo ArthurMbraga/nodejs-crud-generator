@@ -1,5 +1,5 @@
-const RelationController = require("./controllers{{entity.Name}}Controller");
-const RelationValidator = require("./validators/{{entity.Name}}Validator");
+const {{entity.Name}} = require("./controllers/{{entity.Name}}Controller");
+const {{entity.Name}} = require("./validators/{{entity.Name}}Validator");
 
 {{#if methods.create}}
 routes.post('/{{entity.name}}',

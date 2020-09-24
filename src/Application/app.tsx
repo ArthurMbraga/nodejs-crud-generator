@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { ExportBox, FunctionBox, EntityBuilder, FileShow } from "./Components";
 import { Title } from "./styles";
 import { Files, Methods, EntityHolder, Settings } from "./types";
@@ -49,17 +49,17 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="p-3">
+    <div className="p-3 m-auto" style={{ maxWidth: "1024px" }}>
       <Title>NodeJs CRUD generator</Title>
-      <div className="d-flex justify-content-start">
-        <div>
+      <Row className="d-flex justify-content-start mt-4">
+        <Col sm className="flex-grow-0">
           Methods:
           <FunctionBox
             options={["Create", "Read", "Update", "Delete"]}
             onChange={onMethodsChanged}
           />
-        </div>
-        <div>
+        </Col>
+        <Col sm>
           Files to generate:
           <div className="d-flex flex-row flex-wrap">
             <ExportBox
@@ -88,9 +88,9 @@ const App: React.FC = () => {
               onChange={onFilesChanged}
             />
           </div>
-        </div>
-      </div>
-      Entity Builder:
+        </Col>
+      </Row>
+      <div className="mt-2">Entity Builder:</div>
       <EntityBuilder onChange={onEntityChanged} />
       <Button variant="success" onClick={generateFiles}>
         Generate
