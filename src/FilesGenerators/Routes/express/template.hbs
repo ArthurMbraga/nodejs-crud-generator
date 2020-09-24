@@ -1,0 +1,29 @@
+const RelationController = require("./controllers{{entity.Name}}Controller");
+const RelationValidator = require("./validators/{{entity.Name}}Validator");
+
+{{#if methods.create}}
+routes.post(
+  '/{{entity.name}}',
+  {{entity.Name}}Validator.create,
+  {{entity.Name}}Controller.create);
+{{/if}}
+{{#if methods.read}}
+
+routes.get('/{{entity.name}}/:{{entity.name}}_id',
+  {{entity.Name}}Validator.getById,
+  {{entity.Name}}Controller.getById);
+{{/if}}
+{{#if methods.update}}
+
+routes.put('/{{entity.name}}/:{{entity.name}}_id',
+  {{entity.Name}}Validator.update,
+  {{entity.Name}}Controller.update);
+{{/if}}
+{{#if methods.delete}}
+
+routes.delete('/{{entity.name}}/:{{entity.name}}_id',
+  {{entity.Name}}Validator.delete,
+  {{entity.Name}}Controller.delete);
+{{/if}}
+
+module.exports = routes;

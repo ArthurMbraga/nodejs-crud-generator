@@ -1,2 +1,2 @@
-import ExpressknexControllerGenerator from "./expressKnex/expressknex";
-export default { ExpressknexControllerGenerator };
+import ExpressknexControllerGen from "./expressKnex/expressknex";
+export { ExpressknexControllerGen };

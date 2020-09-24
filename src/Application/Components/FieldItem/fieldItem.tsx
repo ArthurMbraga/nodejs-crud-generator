@@ -5,8 +5,8 @@ import { StyledButton, StyledCheckbox } from "./styled";
 import { Select } from "../../../Components";
 import { BsFillTrashFill, BsPlus } from "react-icons/bs";
 import { IconContext } from "react-icons/lib";
-
-const INITIAL_STATE = {
+import { Field } from "../../types";
+const INITIAL_STATE: Field = {
   id: 0,
   name: "",
   type: "",
@@ -14,16 +14,31 @@ const INITIAL_STATE = {
   default: "",
 };
 
-function FieldItem(props) {
+interface Props {
+  startId: number;
+  onSumbmit: (newField: Field) => void;
+  onChange: (newField: FieldTemp) => void;
+  onDelete: (newField: number) => void;
+  submitNew: (newField: Field) => void;
+  addMode: boolean;
+  fieldData: Field;
+  children: React.ReactNode;
+}
+
+interface FieldTemp {
+  [key: string]: any;
+}
+
+const FieldItem: React.FC<Props> = (props) => {
   const currentId = useRef(props.startId ? props.startId : 0);
-  const [field, setField] = useState(INITIAL_STATE);
+  const [field, setField] = useState<Field>(INITIAL_STATE);
 
   useEffect(() => {
     if (props.fieldData) setField(props.fieldData);
   }, [props.fieldData]);
 
   function submitNew() {
-    const fieldCopy = { ...field };
+    const fieldCopy: Field = { ...field };
     fieldCopy.id = currentId.current;
     if (props.submitNew) props.submitNew(fieldCopy);
     currentId.current++;
@@ -35,9 +50,11 @@ function FieldItem(props) {
     if (props.onDelete) props.onDelete(field.id);
   }
 
-  function handleChange(key, value) {
+  function handleChange(key: string, value: string | boolean | number) {
     const newField = { ...field };
+
     newField[key] = value;
+
     if (props.onChange) props.onChange(newField);
     setField(newField);
   }
@@ -61,7 +78,7 @@ function FieldItem(props) {
         <Select
           options={["integer", "string", "float", "boolean"]}
           value={field.type}
-          onChange={(e) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             handleChange("type", e.target.value);
           }}
         />
@@ -71,7 +88,7 @@ function FieldItem(props) {
           type="text"
           placeholder="Default Value (optional)"
           value={field.default}
-          onChange={(e) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             handleChange("default", e.target.value);
           }}
         />
@@ -85,7 +102,11 @@ function FieldItem(props) {
             type="checkbox"
             label="Required"
             className="form"
-            value={true}
+            Group="0"
+            checked={field.required}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleChange("required", !field.required);
+            }}
           />
         </Form.Group>
       </div>
@@ -103,15 +124,6 @@ function FieldItem(props) {
       )}
     </div>
   );
-}
-
-FieldItem.propsTypes = {
-  onSumbmit: PropTypes.func,
-  onChange: PropTypes.func,
-  onDelete: PropTypes.func,
-  addMode: PropTypes.bool,
-  fieldData: PropTypes.object,
-  startId: PropTypes.integer,
 };
 
 export default FieldItem;

@@ -3,7 +3,9 @@ import { Button } from "react-bootstrap";
 import { ExportBox, FunctionBox, EntityBuilder } from "./Components";
 import { Title } from "./styles";
 import { File, Files, Methods, Entity, Field, Settings } from "./types";
-
+import { knexModelGen } from "../FilesGenerators/Models";
+import { knexMigrationGen } from "../FilesGenerators/Migrations";
+import { ExpressknexControllerGen } from "../FilesGenerators/Controllers";
 const INITIAL_SETTINGS = {
   files: {},
   methods: { create: true, read: true, update: true, delete: true },
@@ -38,7 +40,10 @@ const App: React.FC = () => {
     //    console.log(reader.result);
     //};
     //reader.readAsText(t);
-    console.log();
+    const t = knexModelGen.compileFile(entity.current, settings.current);
+    const a = knexMigrationGen.compileFile(entity.current, settings.current);
+    const b = ExpressknexControllerGen.compileFile(entity.current, settings.current);
+    console.log(t,"\n", a, "\n", b);
   }
 
   return (

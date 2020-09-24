@@ -1,0 +1,65 @@
+const {{entity.Name}}Model = require("../models/{{entity.Name}}Model");
+
+module.exports = {
+  {{#if methods.create}}
+  async create(request, response) {
+    try {
+      const {{entity.name}} = request.body;
+
+      const result = await {{entity.Name}}Model.create({{entity.name}});
+      return response.status(200).json(result);
+    } catch (err) {
+      console.log("{{entity.Name}} creation failed: " + err);
+      return response.status(500).json({
+        notification: "Internal server error while trying to create {{entity.Name}}",
+      });
+    }
+  },
+  {{/if}}
+  {{#if methods.read}}
+  async getById(request, response) {
+    try {
+      const { {{entity.name}}_id } = request.params;
+      const result = await {{entity.Name}}.getById({{entity.name}}_id);
+
+      return response.status(200).json(result);
+    } catch (err) {
+      console.log("{{entity.Name}} getById failed: " + err);
+      return response.status(500).json({
+        notification: "Internal server error while trying to get {{entity.Name}}",
+      });
+    }
+  },
+  {{/if}}
+  {{#if methods.update}}
+  async update(request, response) {
+    try {
+      const { {{entity.name}}_id } = request.params;
+      const {{entity.name}} = request.body;
+      const result = await {{entity.Name}}Model.updateById({{entity.name}}_id, {{entity.name}});
+
+      return response.status(200).json(result);
+    } catch (err) {
+      console.log("{{entity.Name}} update failed: " + err);
+      return response.status(500).json({
+        notification: "Internal server error while trying to update {{entity.Name}}",
+      });
+    }
+  },
+  {{/if}}
+  {{#if methods.delete}}
+  async delete(request, response) {
+    try {
+      const { {{entity.name}}_id } = request.params;
+
+      const result = await {{entity.Name}}Model.deleteById({{entity.name}}_id);
+      return response.status(200).json(result);
+    } catch (err) {
+      console.log("{{entity.Name}} delete failed: " + err);
+      return response.status(500).json({
+        notification: "Internal server error while trying to delete {{entity.Name}}",
+      });
+    }
+  },
+  {{/if}}
+};

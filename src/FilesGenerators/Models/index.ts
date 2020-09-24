@@ -1,2 +1,2 @@
-import knexModelGenerator from "./knex/knex";
-export default { knexModelGenerator };
+import knexModelGen from "./knex/knex";
+export { knexModelGen };

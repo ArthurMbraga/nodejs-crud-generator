@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { FieldItem } from "..";
 
 const INITIAL_FIELDS = {
-  "0": {
+  0: {
     id: 0,
     name: "id",
     type: "integer",
@@ -79,7 +79,7 @@ function EntityBuilder(props) {
           <Form.Text className="text-muted">Ex: products</Form.Text>
         </div>
       </div>
-      <FieldItem addMode={true} submitNew={addField} startId={1} />
+      <FieldItem addMode submitNew={addField} startId={1} />
       {Object.keys(fields)
         .reverse()
         .map((key) => {

@@ -22,7 +22,7 @@ export interface Methods {
 export interface Entity {
   name: string;
   tablename: string;
-  fields: [Field];
+  fields: { [key: string]: Field };
 }
 
 export interface Field {
@@ -31,4 +31,5 @@ export interface Field {
   type: string;
   required: boolean;
   default: string;
+  [key: string]: any;
 }
