@@ -1,2 +1,2 @@
-import expressRoutesGen from "./express/express";
-export { expressRoutesGen };
+import ExpressRoutesGen from "./express/express";
+export { ExpressRoutesGen };

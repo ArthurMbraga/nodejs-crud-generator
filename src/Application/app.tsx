@@ -2,10 +2,13 @@ import React, { useRef } from "react";
 import { Button } from "react-bootstrap";
 import { ExportBox, FunctionBox, EntityBuilder } from "./Components";
 import { Title } from "./styles";
-import { File, Files, Methods, Entity, Field, Settings } from "./types";
+import { File, Files, Methods, Entity, EntityHolder, Settings } from "./types";
 import { knexModelGen } from "../FilesGenerators/Models";
 import { knexMigrationGen } from "../FilesGenerators/Migrations";
 import { ExpressknexControllerGen } from "../FilesGenerators/Controllers";
+import { ExpressRoutesGen } from "../FilesGenerators/Routes";
+import { JoiValidatorGen } from "../FilesGenerators/Validators";
+
 const INITIAL_SETTINGS = {
   files: {},
   methods: { create: true, read: true, update: true, delete: true },
@@ -13,7 +16,7 @@ const INITIAL_SETTINGS = {
 
 const App: React.FC = () => {
   const settings = useRef<Settings>(INITIAL_SETTINGS);
-  const entity = useRef<Entity>();
+  const entity = useRef<EntityHolder>();
 
   function onMethodsChanged(obj: Methods) {
     const newSettings = { ...settings.current };
@@ -27,7 +30,7 @@ const App: React.FC = () => {
     settings.current = newSettings;
   }
 
-  function onEntityChanged(obj: Entity) {
+  function onEntityChanged(obj: EntityHolder) {
     entity.current = obj;
   }
 
@@ -40,10 +43,39 @@ const App: React.FC = () => {
     //    console.log(reader.result);
     //};
     //reader.readAsText(t);
-    const t = knexModelGen.compileFile(entity.current, settings.current);
-    const a = knexMigrationGen.compileFile(entity.current, settings.current);
-    const b = ExpressknexControllerGen.compileFile(entity.current, settings.current);
-    console.log(t,"\n", a, "\n", b);
+    const t = knexModelGen.compileFile(
+      entity.current?.entity,
+      settings.current
+    );
+    const a = knexMigrationGen.compileFile(
+      entity.current?.entity,
+      settings.current
+    );
+    const b = ExpressknexControllerGen.compileFile(
+      entity.current?.entity,
+      settings.current
+    );
+    const c = ExpressRoutesGen.compileFile(
+      entity.current?.entity,
+      settings.current
+    );
+    const d = JoiValidatorGen.compileFile(
+      entity.current?.entity,
+      settings.current
+    );
+
+    console.log(t, "\n", a, "\n", b, "\n", c, "\n", d);
+
+    // const downloadTxtFile = (text: string, name: string) => {
+    //   const element = document.createElement("a");
+    //   const file = new Blob([text], { type: "text/plain" });
+    //   element.href = URL.createObjectURL(file);
+    //   element.download = `${name}.js`;
+    //   document.body.appendChild(element); // Required for this to work in FireFox
+    //   element.click();
+    // };
+
+    //  downloadTxtFile(t, "teste");
   }
 
   return (

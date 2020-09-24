@@ -2,7 +2,9 @@ exports.up = function (knex) {
   return knex.schema
     .createTable("{{entity.tableName}}", function (table) {
       {{#each entity.fields}}
-      table.{{type}}("{{name}}"){{#if required}}.notNullable(){{/if}}{{#if default}}.defaultTo({{default}}){{/if}};
+      table.{{type}}("{{name}}"){{#if required}}
+        .notNullable(){{/if}}{{#if default}}
+        .defaultTo({{default}}){{/if}};
       {{/each}}
     });
 };

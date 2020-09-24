@@ -1,2 +1,2 @@
-import joiValidatorGen from "./joi/joi";
-export { joiValidatorGen };
+import JoiValidatorGen from "./joi/joi";
+export { JoiValidatorGen };

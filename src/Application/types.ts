@@ -23,6 +23,11 @@ export interface Entity {
   name: string;
   tablename: string;
   fields: { [key: string]: Field };
+  [key: string]: any;
+}
+
+export interface EntityHolder {
+  entity: Entity;
 }
 
 export interface Field {
@@ -31,5 +36,6 @@ export interface Field {
   type: string;
   required: boolean;
   default: string;
+  isPrimaryKey: boolean;
   [key: string]: any;
 }

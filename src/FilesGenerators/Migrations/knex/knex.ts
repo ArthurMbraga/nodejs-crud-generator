@@ -9,14 +9,14 @@ class KnexMigrationGen extends FileGenerator {
     const template = Handlebars.compile(txt);
     return template;
   }
-  
+
   public static compileFile(
     entity: Entity | undefined,
     settings: Settings | undefined
   ): string {
     const template = KnexMigrationGen.getHbsTemplate();
 
-    return template({ ...settings, ...entity });
+    return template({ ...settings, entity });
   }
 }
 

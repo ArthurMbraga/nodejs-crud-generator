@@ -10,6 +10,7 @@ const INITIAL_FIELDS = {
     type: "integer",
     required: false,
     default: undefined,
+    isPrimaryKey: true,
   },
 };
 

@@ -9,25 +9,25 @@ module.exports = {
   },
   {{/if}}
   {{#if methods.read}}
-  async getById(id) {
+  async getById({{entity.name}}_id) {
     const result = await connection('{{entity.tableName}}')
-      .where({ id })
+      .where({ {{entity.name}}_id })
       .select('*');
     return result;
   },
   {{/if}}
   {{#if methods.update}}
-  async updateById(id, {{entity.name}}) {
+  async updateById({{entity.name}}_id, {{entity.name}}) {
     const result = await connection('{{entity.tableName}}')
-      .where({id})
+      .where({ {{entity.name}}_id })
       .update({{entity.name}});
     return result;
   },
   {{/if}}
   {{#if methods.delete}}
-  async deleteById(id) {
+  async deleteById({{entity.name}}_id) {
     const result = await connection('{{entity.tableName}}')
-      .where({id})
+      .where({ {{entity.name}}_id })
       .delete();
     return result;
   },

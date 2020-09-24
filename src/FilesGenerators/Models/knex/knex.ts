@@ -15,7 +15,7 @@ class KnexModelGenerator extends FileGenerator {
   ): string {
     const template = KnexModelGenerator.getHbsTemplate();
 
-    return template({ ...settings, ...entity });
+    return template({ ...settings, entity });
   }
 }
 

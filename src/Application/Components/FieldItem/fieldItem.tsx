@@ -102,7 +102,6 @@ const FieldItem: React.FC<Props> = (props) => {
             type="checkbox"
             label="Required"
             className="form"
-            Group="0"
             checked={field.required}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               handleChange("required", !field.required);

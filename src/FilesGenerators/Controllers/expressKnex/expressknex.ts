@@ -15,13 +15,11 @@ class ExpressKnexControllerGen extends FileGenerator {
     settings: Settings | undefined
   ): string {
     const template = ExpressKnexControllerGen.getHbsTemplate();
-    if (entity && entity.fields)
-      Object.keys(entity.fields).forEach((key) => {
-        const field = entity.fields[key];
-        field.Name = ExpressKnexControllerGen.capitalizeFirstLetter(field.name);
-      });
 
-    return template({ ...settings, ...entity });
+    if (entity !== undefined)
+      entity.Name = ExpressKnexControllerGen.capitalizeFirstLetter(entity.name);
+
+    return template({ ...settings, entity });
   }
 
   static capitalizeFirstLetter(string: string) {

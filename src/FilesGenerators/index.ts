@@ -1,5 +1,5 @@
 import { ExpressknexControllerGen } from "./Controllers";
 import { knexMigrationGen } from "./Migrations";
 import { knexModelGen } from "./Models";
-import { expressRoutesGen } from "./Routes";
-import { joiValidatorGen } from "./Validators";
+import { ExpressRoutesGen } from "./Routes";
+import { JoiValidatorGen } from "./Validators";

@@ -16,7 +16,18 @@ class JoiValidadorGen extends FileGenerator {
   ): string {
     const template = JoiValidadorGen.getHbsTemplate();
 
-    return template({ ...settings, ...entity });
+    if (entity && entity.fields)
+      Object.keys(entity.fields).forEach((key, index) => {
+        const field = entity.fields[key];
+        field.isNumber = field.type === "float" || field.type === "integer";
+
+        if (field.isPrimaryKey) {
+          entity.idField = field;
+          delete entity.fields[key];
+        }
+      });
+
+    return template({ ...settings, entity });
   }
 }
 
