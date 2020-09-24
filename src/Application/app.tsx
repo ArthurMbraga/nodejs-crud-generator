@@ -1,6 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { ExportBox, FunctionBox, EntityBuilder, FileShow } from "./Components";
+import {
+  ExportBox,
+  FunctionBox,
+  EntityBuilder,
+  FileShow,
+  GithubButton,
+} from "./Components";
 import { Title } from "./styles";
 import { Files, Methods, EntityHolder, Settings } from "./types";
 import { FilesGenerator } from "../FilesGenerators";
@@ -50,6 +56,12 @@ const App: React.FC = () => {
 
   return (
     <div className="p-3 m-auto" style={{ maxWidth: "1024px" }}>
+      <div className="d-flex flex-row-reverse">
+        <GithubButton
+          href="https://github.com/ArthurMbraga/nodejs-crud-generator"
+          className="ml-auto"
+        />
+      </div>
       <Title>NodeJs CRUD generator</Title>
       <Row className="d-flex justify-content-start mt-4">
         <Col sm className="flex-grow-0">
