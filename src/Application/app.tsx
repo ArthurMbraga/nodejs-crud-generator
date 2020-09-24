@@ -31,7 +31,7 @@ const App: React.FC = () => {
     settings.current = newSettings;
   }
 
-  function onEntityChanged(obj: EntityHolder) {
+  function onEntityChanged(obj: EntityHolder): void {
     entity.current = obj;
   }
 
@@ -46,46 +46,6 @@ const App: React.FC = () => {
         settings.current
       );
     setTextFiles(files);
-
-    //const reader = new FileReader();
-    // reader.onloadend = () => {
-    //    console.log(reader.result);
-    //};
-    //reader.readAsText(t);
-    // const t = knexModelGen.compileFile(
-    //   entity.current?.entity,
-    //   settings.current
-    // );
-    // const a = knexMigrationGen.compileFile(
-    //   entity.current?.entity,
-    //   settings.current
-    // );
-    // const b = ExpressknexControllerGen.compileFile(
-    //   entity.current?.entity,
-    //   settings.current
-    // );
-    // const c = ExpressRoutesGen.compileFile(
-    //   entity.current?.entity,
-    //   settings.current
-    // );
-    // const d = JoiValidatorGen.compileFile(
-    //   entity.current?.entity,
-    //   settings.current
-    // );
-    // const files = { "model.js": t, "migration.js": a };
-    // setTextFiles(files);
-    // console.log(t, "\n", a, "\n", b, "\n", c, "\n", d);
-
-    // const downloadTxtFile = (text: string, name: string) => {
-    //   const element = document.createElement("a");
-    //   const file = new Blob([text], { type: "text/plain" });
-    //   element.href = URL.createObjectURL(file);
-    //   element.download = `${name}.js`;
-    //   document.body.appendChild(element); // Required for this to work in FireFox
-    //   element.click();
-    // };
-
-    //  downloadTxtFile(t, "teste");
   }
 
   return (

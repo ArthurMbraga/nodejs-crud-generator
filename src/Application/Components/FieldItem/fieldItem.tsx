@@ -1,30 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form } from "react-bootstrap";
-import PropTypes from "prop-types";
 import { StyledButton, StyledCheckbox } from "./styled";
 import { Select } from "../../../Components";
-import { BsFillTrashFill, BsPlus } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
 import { IconContext } from "react-icons/lib";
 import { Field } from "../../types";
 
 const INITIAL_STATE: Field = {
   id: 0,
   name: "",
-  type: "",
+  type: "integer",
   required: false,
   default: "",
   isPrimaryKey: false,
 };
 
 interface Props {
-  startId: number;
-  onSumbmit: (newField: Field) => void;
-  onChange: (newField: FieldTemp) => void;
-  onDelete: (newField: number) => void;
-  submitNew: (newField: Field) => void;
-  addMode: boolean;
-  fieldData: Field;
-  children: React.ReactNode;
+  startId?: number;
+  onSumbmit?: (newField: Field) => void;
+  onChange?: (newField: Field) => void;
+  onDelete?: (newField: number) => void;
+  submitNew?: (newField: Field) => void;
+  addMode?: boolean;
+  fieldData?: Field;
+  children?: React.ReactNode;
 }
 
 interface FieldTemp {

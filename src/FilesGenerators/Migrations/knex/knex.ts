@@ -13,14 +13,16 @@ class KnexMigrationGen extends FileGenerator {
   public compileFile(
     entity: Entity | undefined,
     settings: Settings | undefined
-  ): TextFile {
+  ): TextFile | undefined {
     const template = KnexMigrationGen.getHbsTemplate();
 
-    if (entity !== undefined)
-    entity.Name = FileGenerator.capitalizeFirstLetter(entity.name);
+    if (entity !== undefined) {
+      const newEntity: Entity = { ...entity };
+      newEntity.Name = FileGenerator.capitalizeFirstLetter(newEntity.name);
 
-    const text = template({ ...settings, entity });
-    return { [`${entity?.Name}Migration.js`]: text };
+      const text = template({ ...settings, entity: newEntity });
+      return { [`${newEntity?.Name}Migration.js`]: text };
+    }
   }
 }
 

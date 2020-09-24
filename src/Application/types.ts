@@ -28,7 +28,7 @@ export interface Methods {
 
 export interface Entity {
   name: string;
-  tablename: string;
+  tableName: string;
   fields: { [key: string]: Field };
   [key: string]: any;
 }
@@ -42,7 +42,7 @@ export interface Field {
   name: string;
   type: string;
   required: boolean;
-  default: string;
+  default: string | undefined;
   isPrimaryKey: boolean;
   [key: string]: any;
 }

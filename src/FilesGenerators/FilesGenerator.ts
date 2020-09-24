@@ -1,5 +1,4 @@
 import { ExpressknexControllerGen } from "./Controllers";
-import { knexMigrationGen } from "./Migrations";
 import { knexModelGen } from "./Models";
 import { ExpressRoutesGen } from "./Routes";
 import { CelebrateValidatorGen } from "./Validators";
@@ -56,35 +55,35 @@ export class FilesGenerator {
   static selectController(file: File): FileGenerator | undefined {
     switch (file.type) {
       case "Knex + Express":
-        return new ExpressknexControllerGen;
+        return new ExpressknexControllerGen();
     }
   }
 
   static selectMigration(file: File): FileGenerator | undefined {
     switch (file.type) {
       case "Knex":
-        return new KnexMigrationGen;
+        return new KnexMigrationGen();
     }
   }
 
   static selectModel(file: File): FileGenerator | undefined {
     switch (file.type) {
       case "Knex":
-        return new knexModelGen;
+        return new knexModelGen();
     }
   }
 
   static selectRoute(file: File): FileGenerator | undefined {
     switch (file.type) {
       case "Express":
-        return new ExpressRoutesGen;
+        return new ExpressRoutesGen();
     }
   }
 
   static selectValidator(file: File): FileGenerator | undefined {
     switch (file.type) {
       case "Celebrate":
-        return new CelebrateValidatorGen;
+        return new CelebrateValidatorGen();
     }
   }
 }

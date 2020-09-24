@@ -1,2 +1,2 @@
-import CelebrateValidatorGen from "./celebrate/celebrate";
+import CelebrateValidatorGen from "./celebrate/celebrate_";
 export { CelebrateValidatorGen };

@@ -8,7 +8,7 @@ export abstract class FileGenerator {
   public abstract compileFile(
     entity: Entity | undefined,
     settings: Settings | undefined
-  ): TextFile;
+  ): TextFile | undefined;
 
   public static capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);

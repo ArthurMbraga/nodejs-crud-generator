@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Accordion, Button, Card } from "react-bootstrap";
+import React from "react";
+import { Accordion, Card } from "react-bootstrap";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { IconContext } from "react-icons/lib";
@@ -13,8 +13,6 @@ interface Props {
 }
 
 const FileShow: React.FC<Props> = (props) => {
-  const [textFiles, setTextFiles] = useState<TextFile>(props.files);
-
   const downloadFile = (content: string, fileName: string) => {
     const element = document.createElement("a");
     const file = new Blob([content], { type: "text/plain" });

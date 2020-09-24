@@ -3,7 +3,7 @@ import Handlebars from "handlebars";
 import { Entity, Settings, TextFile } from "../../../Application/types";
 import { FileGenerator } from "../../types";
 
-class ExpressKnexControllerGen extends FileGenerator {
+class CelebrateValidatorGen extends FileGenerator {
   protected static getHbsTemplate(): HandlebarsTemplateDelegate<any> {
     const txt = raw("./template.hbs");
     const template = Handlebars.compile(txt);
@@ -14,16 +14,29 @@ class ExpressKnexControllerGen extends FileGenerator {
     entity: Entity | undefined,
     settings: Settings | undefined
   ): TextFile | undefined {
-    const template = ExpressKnexControllerGen.getHbsTemplate();
+    const template = CelebrateValidatorGen.getHbsTemplate();
 
     if (entity !== undefined) {
       const newEntity: Entity = { ...entity };
       newEntity.Name = FileGenerator.capitalizeFirstLetter(newEntity.name);
 
+      if (entity.fields) {
+        newEntity.fields = { ...entity.fields };
+        Object.keys(newEntity.fields).forEach((key, index) => {
+          const field = newEntity.fields[key];
+          field.isNumber = field.type === "float" || field.type === "integer";
+
+          if (field.isPrimaryKey) {
+            newEntity.idField = field;
+            delete newEntity.fields[key];
+          }
+        });
+      }
+
       const text = template({ ...settings, entity: newEntity });
-      return { [`${newEntity?.Name}Controller.js`]: text };
+      return { [`${newEntity?.Name}Validator.js`]: text };
     }
   }
 }
 
-export default ExpressKnexControllerGen;
+export default CelebrateValidatorGen;

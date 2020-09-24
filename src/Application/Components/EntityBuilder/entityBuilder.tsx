@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
-import PropTypes from "prop-types";
 import { FieldItem } from "..";
+import { Entity, EntityHolder, Field } from "../../types";
 
-const INITIAL_FIELDS = {
+const INITIAL_FIELDS: Fields = {
   0: {
     id: 0,
     name: "id",
@@ -14,36 +14,47 @@ const INITIAL_FIELDS = {
   },
 };
 
-const INITIAL_ENTITY = {
+const INITIAL_ENTITY: Entity = {
   name: "",
   tableName: "",
+  fields: { ...INITIAL_FIELDS },
 };
 
-function EntityBuilder(props) {
-  const [fields, setFields] = useState(INITIAL_FIELDS);
-  const [entity, setEntity] = useState(INITIAL_ENTITY);
+interface Props {
+  onChange?: (obj: EntityHolder) => void;
+}
 
-  function addField(field) {
+interface Fields {
+  [key: string]: Field;
+}
+
+const EntityBuilder: React.FC<Props> = (props) => {
+  const [fields, setFields] = useState<Fields>(INITIAL_FIELDS);
+  const [entity, setEntity] = useState<Entity>(INITIAL_ENTITY);
+
+  function addField(field: Field) {
     const newFields = { ...fields };
     newFields[field.id] = field;
 
     setFields(newFields);
   }
 
-  function handleDelete(id) {
+  function handleDelete(id: number): void {
     const newFields = { ...fields };
     delete newFields[id];
     setFields(newFields);
   }
 
-  function handleUpdateEntity(event) {
+  function handleUpdateEntity(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
     const { value, name } = event.target;
     const newEntity = { ...entity };
     newEntity[name] = value;
     setEntity(newEntity);
   }
 
-  function handleUpdateField(obj) {
+  function handleUpdateField(obj: Field): void {
     const newFields = { ...fields };
     newFields[obj.id] = obj;
     setFields(newFields);
@@ -96,11 +107,6 @@ function EntityBuilder(props) {
         })}
     </div>
   );
-}
-
-EntityBuilder.propsTypes = {
-  title: PropTypes.string,
-  options: PropTypes.array,
 };
 
 export default EntityBuilder;
