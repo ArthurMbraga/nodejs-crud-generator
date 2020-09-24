@@ -20,6 +20,19 @@ class KnexMigrationGen extends FileGenerator {
       const newEntity: Entity = { ...entity };
       newEntity.Name = FileGenerator.capitalizeFirstLetter(newEntity.name);
 
+      if (entity.fields) {
+        newEntity.fields = { ...entity.fields };
+        Object.keys(newEntity.fields).forEach((key, index) => {
+          const field = newEntity.fields[key];
+          if (field.isPrimaryKey) {
+            newEntity.pkField = field;
+            newEntity.pkField.isIncrements = field.type === "integer"
+            newEntity.required = true;
+            delete newEntity.fields[key];
+          }
+        });
+      }
+
       const text = template({ ...settings, entity: newEntity });
       return { [`${newEntity?.Name}Migration.js`]: text };
     }

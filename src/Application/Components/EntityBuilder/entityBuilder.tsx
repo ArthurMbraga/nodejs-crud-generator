@@ -7,7 +7,7 @@ import { Entity, EntityHolder, Field } from "../../types";
 const INITIAL_FIELDS: Fields = {
   0: {
     id: 0,
-    name: "id",
+    name: "_id",
     type: "integer",
     required: false,
     default: undefined,
@@ -75,23 +75,25 @@ const EntityBuilder: React.FC<Props> = (props) => {
           <Form.Label>Entity Name:</Form.Label>
           <Form.Control
             type="text"
+            style={{minWidth: "110px"}}
             placeholder="Enter entity Name"
             value={entity.name}
             name="name"
             onChange={handleUpdateEntity}
           />
-          <Form.Text className="text-muted">Name (Ex: product)</Form.Text>
+          <Form.Text className="text-muted">Ex: product</Form.Text>
         </div>
         <div className="mr-2">
           <Form.Label>Table name:</Form.Label>
           <Form.Control
             type="text"
+            style={{minWidth: "110px"}}
             placeholder="Enter table Name"
             value={entity.tableName}
             name="tableName"
             onChange={handleUpdateEntity}
           />
-          <Form.Text className="text-muted">Table (Ex: products)</Form.Text>
+          <Form.Text className="text-muted">Ex: products</Form.Text>
         </div>
       </div>
       <Form.Label className="mt-2">New Field:</Form.Label>
@@ -103,6 +105,7 @@ const EntityBuilder: React.FC<Props> = (props) => {
           const field = fields[key];
           return (
             <FieldItem
+              entityName={entity.name}
               key={field.id}
               fieldData={field}
               onDelete={handleDelete}

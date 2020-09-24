@@ -27,7 +27,7 @@ const FileShow: React.FC<Props> = (props) => {
       {Object.keys(props.files).map((fileName, index) => {
         const content = props.files[fileName];
         return (
-          <Accordion defaultActiveKey={`${index}`} key={index} className="my-2">
+          <Accordion key={index} className="my-2">
             <Card>
               <Accordion.Toggle
                 as={Card.Header}

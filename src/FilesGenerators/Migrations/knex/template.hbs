@@ -1,6 +1,7 @@
 exports.up = function (knex) {
   return knex.schema
     .createTable("{{entity.tableName}}", function (table) {
+      {{#if entity.pkField}}table{{#if entity.pkField.isIncrements}}.increments{{else}}.{{entity.pkField.type}}{{/if}}("{{entity.pkField.name}}").primary(){{/if}};
       {{#each entity.fields}}
       table.{{type}}("{{name}}"){{#if required}}
         .notNullable(){{/if}}{{#if default}}

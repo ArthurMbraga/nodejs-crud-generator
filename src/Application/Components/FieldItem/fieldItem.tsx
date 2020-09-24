@@ -24,10 +24,7 @@ interface Props {
   addMode?: boolean;
   fieldData?: Field;
   children?: React.ReactNode;
-}
-
-interface FieldTemp {
-  [key: string]: any;
+  entityName?: string;
 }
 
 const FieldItem: React.FC<Props> = (props) => {
@@ -37,6 +34,14 @@ const FieldItem: React.FC<Props> = (props) => {
   useEffect(() => {
     if (props.fieldData) setField(props.fieldData);
   }, [props.fieldData]);
+
+  useEffect(() => {
+    if (field.isPrimaryKey) {
+      const newField = { ...field };
+      newField.name = `${props.entityName}_id`;
+      handleChange("name", newField.name);
+    }
+  }, [props.entityName]);
 
   function submitNew() {
     const fieldCopy: Field = { ...field };
@@ -64,6 +69,7 @@ const FieldItem: React.FC<Props> = (props) => {
     <div className="d-flex flex-row mb-2">
       <div className="mr-2">
         <Form.Control
+          style={{ minWidth: "110px" }}
           type="text"
           placeholder="Field Name"
           value={field.name}
@@ -74,9 +80,13 @@ const FieldItem: React.FC<Props> = (props) => {
         {props.addMode && (
           <Form.Text className="text-muted">Ex: name</Form.Text>
         )}
+        {field.isPrimaryKey && (
+          <Form.Text className="text-muted">Primary key</Form.Text>
+        )}
       </div>
       <div className="mr-2">
         <Select
+          style={{ minWidth: "110px" }}
           options={["integer", "string", "float", "boolean"]}
           value={field.type}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +96,7 @@ const FieldItem: React.FC<Props> = (props) => {
       </div>
       <div className="mr-2">
         <Form.Control
+          style={{ minWidth: "110px" }}
           type="text"
           placeholder="Default Value (optional)"
           value={field.default}
