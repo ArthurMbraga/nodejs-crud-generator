@@ -6,12 +6,14 @@ import { Select } from "../../../Components";
 import { BsFillTrashFill, BsPlus } from "react-icons/bs";
 import { IconContext } from "react-icons/lib";
 import { Field } from "../../types";
+
 const INITIAL_STATE: Field = {
   id: 0,
   name: "",
   type: "",
   required: false,
   default: "",
+  isPrimaryKey: false,
 };
 
 interface Props {

@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "react-bootstrap";
-import { ExportBox, FunctionBox, EntityBuilder } from "./Components";
+import { ExportBox, FunctionBox, EntityBuilder, FileShow } from "./Components";
 import { Title } from "./styles";
-import { File, Files, Methods, Entity, EntityHolder, Settings } from "./types";
+import { Files, Methods, EntityHolder, Settings } from "./types";
 import { knexModelGen } from "../FilesGenerators/Models";
 import { knexMigrationGen } from "../FilesGenerators/Migrations";
 import { ExpressknexControllerGen } from "../FilesGenerators/Controllers";
@@ -14,9 +14,14 @@ const INITIAL_SETTINGS = {
   methods: { create: true, read: true, update: true, delete: true },
 };
 
+interface TextFile {
+  [key: string]: string;
+}
+
 const App: React.FC = () => {
   const settings = useRef<Settings>(INITIAL_SETTINGS);
   const entity = useRef<EntityHolder>();
+  const [textFiles, setTextFiles] = useState<TextFile>({});
 
   function onMethodsChanged(obj: Methods) {
     const newSettings = { ...settings.current };
@@ -63,7 +68,8 @@ const App: React.FC = () => {
       entity.current?.entity,
       settings.current
     );
-
+    const files = { "model.js": t, "migration.js": a };
+    setTextFiles(files);
     console.log(t, "\n", a, "\n", b, "\n", c, "\n", d);
 
     // const downloadTxtFile = (text: string, name: string) => {
@@ -125,6 +131,7 @@ const App: React.FC = () => {
       <Button variant="success" onClick={generateFiles}>
         Generate
       </Button>
+      <FileShow files={textFiles} />
     </div>
   );
 };

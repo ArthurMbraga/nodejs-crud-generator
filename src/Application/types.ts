@@ -39,3 +39,7 @@ export interface Field {
   isPrimaryKey: boolean;
   [key: string]: any;
 }
+
+export interface TextFile {
+  [key: string]: string;
+}
