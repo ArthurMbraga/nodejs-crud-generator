@@ -1,20 +1,23 @@
 import raw from "raw.macro";
 import Handlebars from "handlebars";
-import { Entity, Settings } from "../../../Application/types";
+import { Entity, Settings, TextFile } from "../../../Application/types";
 import { FileGenerator } from "../../types";
 
-class JoiValidadorGen extends FileGenerator {
+class CelebrateValidatorGen extends FileGenerator {
   protected static getHbsTemplate(): HandlebarsTemplateDelegate<any> {
     const txt = raw("./template.hbs");
     const template = Handlebars.compile(txt);
     return template;
   }
 
-  public static compileFile(
+  public compileFile(
     entity: Entity | undefined,
     settings: Settings | undefined
-  ): string {
-    const template = JoiValidadorGen.getHbsTemplate();
+  ): TextFile {
+    const template = CelebrateValidatorGen.getHbsTemplate();
+
+    if (entity !== undefined)
+      entity.Name = FileGenerator.capitalizeFirstLetter(entity.name);
 
     if (entity && entity.fields)
       Object.keys(entity.fields).forEach((key, index) => {
@@ -27,8 +30,9 @@ class JoiValidadorGen extends FileGenerator {
         }
       });
 
-    return template({ ...settings, entity });
+    const text = template({ ...settings, entity });
+    return { [`${entity?.Name}Validator.js`]: text };
   }
 }
 
-export default JoiValidadorGen;
+export default CelebrateValidatorGen;

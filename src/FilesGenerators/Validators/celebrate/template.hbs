@@ -2,10 +2,11 @@ const { celebrate, Segments, Joi } = require("celebrate");
 
 module.exports = {
   {{#if methods.create}}
+  
   create: celebrate({
     [Segments.BODY]: Joi.object().keys({
       {{#each entity.fields}}
-      {{name}}: Joi{{#if isNumber}}.number(){{/if}}.{{type}}().{{#if required}}.required(){{/if}};
+      {{name}}: Joi{{#if isNumber}}.number(){{/if}}.{{type}}(){{#if required}}.required(){{/if}};
       {{/each}}
     }),
   }),
@@ -14,7 +15,7 @@ module.exports = {
 
   getById: celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-      {{entity.idField.name}}: Joi{{#if entity.idField.isNumber}}.number().{{/if}}{{entity.idField.type}}().required(),
+      {{entity.idField.name}}: Joi{{#if entity.idField.isNumber}}.number(){{/if}}.{{entity.idField.type}}().required(),
     }),
   }),
   {{/if}}
@@ -22,11 +23,11 @@ module.exports = {
 
   update: celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-      {{entity.idField.name}}: Joi{{#if entity.idField.isNumber}}.number().{{/if}}{{entity.idField.type}}().required(),
+      {{entity.idField.name}}: Joi{{#if entity.idField.isNumber}}.number(){{/if}}.{{entity.idField.type}}().required(),
     }),
     [Segments.BODY]: Joi.object().keys({
       {{#each entity.fields}}
-      {{name}}: Joi{{#if isNumber}}.number().{{/if}}{{type}}().optional();
+      {{name}}: Joi{{#if isNumber}}.number(){{/if}}.{{type}}().optional();
       {{/each}}
     }),    
   }),
@@ -35,7 +36,7 @@ module.exports = {
   
   delete: celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-      {{entity.idField.name}}: Joi{{#if entity.idField.isNumber}}.number().{{/if}}{{entity.idField.type}}().required(),
+      {{entity.idField.name}}: Joi{{#if entity.idField.isNumber}}.number(){{/if}}.{{entity.idField.type}}().required(),
     }),
   }),
   {{/if}}

@@ -1,5 +1,12 @@
 export interface Settings {
-  files: { [key: string]: File };
+  files: {
+    // controller: File;
+    // migration: File;
+    // model: File;
+    // route: File;
+    // validator: File;
+    [key: string]: File;
+  };
   methods: Methods;
 }
 

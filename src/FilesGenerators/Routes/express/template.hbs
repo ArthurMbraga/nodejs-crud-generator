@@ -2,8 +2,7 @@ const RelationController = require("./controllers{{entity.Name}}Controller");
 const RelationValidator = require("./validators/{{entity.Name}}Validator");
 
 {{#if methods.create}}
-routes.post(
-  '/{{entity.name}}',
+routes.post('/{{entity.name}}',
   {{entity.Name}}Validator.create,
   {{entity.Name}}Controller.create);
 {{/if}}

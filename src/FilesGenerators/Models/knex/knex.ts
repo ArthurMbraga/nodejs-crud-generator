@@ -1,6 +1,6 @@
 import raw from "raw.macro";
 import Handlebars from "handlebars";
-import { Entity, Settings } from "../../../Application/types";
+import { Entity, Settings, TextFile } from "../../../Application/types";
 import { FileGenerator } from "../../types";
 class KnexModelGenerator extends FileGenerator {
   protected static getHbsTemplate(): HandlebarsTemplateDelegate<any> {
@@ -8,14 +8,18 @@ class KnexModelGenerator extends FileGenerator {
     const template = Handlebars.compile(txt);
     return template;
   }
-  
-  public static compileFile(
+
+  public compileFile(
     entity: Entity | undefined,
     settings: Settings | undefined
-  ): string {
+  ): TextFile {
     const template = KnexModelGenerator.getHbsTemplate();
 
-    return template({ ...settings, entity });
+    if (entity !== undefined)
+      entity.Name = FileGenerator.capitalizeFirstLetter(entity.name);
+
+    const text = template({ ...settings, entity });
+    return { [`${entity?.Name}Model.js`]: text };
   }
 }
 

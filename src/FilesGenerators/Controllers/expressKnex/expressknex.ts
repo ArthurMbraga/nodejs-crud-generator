@@ -1,6 +1,6 @@
 import raw from "raw.macro";
 import Handlebars from "handlebars";
-import { Entity, Settings } from "../../../Application/types";
+import { Entity, Settings, TextFile } from "../../../Application/types";
 import { FileGenerator } from "../../types";
 
 class ExpressKnexControllerGen extends FileGenerator {
@@ -10,20 +10,17 @@ class ExpressKnexControllerGen extends FileGenerator {
     return template;
   }
 
-  public static compileFile(
+  public compileFile(
     entity: Entity | undefined,
     settings: Settings | undefined
-  ): string {
+  ): TextFile {
     const template = ExpressKnexControllerGen.getHbsTemplate();
 
     if (entity !== undefined)
-      entity.Name = ExpressKnexControllerGen.capitalizeFirstLetter(entity.name);
+      entity.Name = FileGenerator.capitalizeFirstLetter(entity.name);
 
-    return template({ ...settings, entity });
-  }
-
-  static capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    const text = template({ ...settings, entity });
+    return { [`${entity?.Name}Controller.js`]: text };
   }
 }
 

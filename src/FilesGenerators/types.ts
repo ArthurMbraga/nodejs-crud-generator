@@ -1,15 +1,16 @@
-import { Entity, Settings } from "../Application/types";
-
+import { Entity, Settings, TextFile } from "../Application/types";
 
 export abstract class FileGenerator {
   protected static getHbsTemplate(): HandlebarsTemplateDelegate {
     throw new Error("Not implemented");
   }
 
-  public static compileFile(
+  public abstract compileFile(
     entity: Entity | undefined,
     settings: Settings | undefined
-  ): string {
-    throw new Error("Not implemented");
+  ): TextFile;
+
+  public static capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

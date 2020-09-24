@@ -1,6 +1,6 @@
 import raw from "raw.macro";
 import Handlebars from "handlebars";
-import { Entity, Settings } from "../../../Application/types";
+import { Entity, Settings, TextFile } from "../../../Application/types";
 import { FileGenerator } from "../../types";
 
 class KnexMigrationGen extends FileGenerator {
@@ -10,13 +10,17 @@ class KnexMigrationGen extends FileGenerator {
     return template;
   }
 
-  public static compileFile(
+  public compileFile(
     entity: Entity | undefined,
     settings: Settings | undefined
-  ): string {
+  ): TextFile {
     const template = KnexMigrationGen.getHbsTemplate();
 
-    return template({ ...settings, entity });
+    if (entity !== undefined)
+    entity.Name = FileGenerator.capitalizeFirstLetter(entity.name);
+
+    const text = template({ ...settings, entity });
+    return { [`${entity?.Name}Migration.js`]: text };
   }
 }
 
