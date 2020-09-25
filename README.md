@@ -11,3 +11,4 @@ Compatibility with:
 |-----------|---------|--------------|------------------|-------------------|
 | ` knex`   | `knex`  |  `express `  | `knex + express` | `celebrate + joi` |  
 
+code patterns built with [Handlebars](https://handlebarsjs.com/)
