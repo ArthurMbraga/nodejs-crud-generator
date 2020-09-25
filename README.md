@@ -6,9 +6,11 @@ You can access this generator [here](https://peaceful-goldwasser-fcf2cc.netlify.
 
 ![CRUD main page](https://raw.githubusercontent.com/ArthurMbraga/nodejs-crud-generator/master/print.png)
 
-Compatibility with:
+### Compatibility with:
 | Migration |  Model  |  Controller  |      Routes      |     Validators    | 
 |-----------|---------|--------------|------------------|-------------------|
 | ` knex`   | `knex`  |  `express `  | `knex + express` | `celebrate + joi` |  
 
-code patterns built with [Handlebars](https://handlebarsjs.com/)
+### Made with templates
+
+code templates built with [Handlebars](https://handlebarsjs.com/)
