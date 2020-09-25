@@ -4,4 +4,4 @@ jobs:
   include:
   - stage: deploy
     if: branch = master
-    script: npm run build
+    script: CI= npm run build
