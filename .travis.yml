@@ -1,0 +1,7 @@
+language: node_js
+node_js: 12
+jobs:
+  include:
+  - stage: deploy
+    if: branch = master
+    script: npm run deploy
