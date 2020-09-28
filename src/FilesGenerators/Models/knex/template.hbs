@@ -12,7 +12,8 @@ module.exports = {
   async getById({{entity.name}}_id) {
     const result = await connection('{{entity.tableName}}')
       .where({ {{entity.name}}_id })
-      .select('*');
+      .select('*')
+      .first();
     return result;
   },
   {{/if}}
