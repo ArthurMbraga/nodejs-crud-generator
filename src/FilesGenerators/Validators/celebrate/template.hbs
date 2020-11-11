@@ -6,7 +6,7 @@ module.exports = {
   create: celebrate({
     [Segments.BODY]: Joi.object().keys({
       {{#each entity.fields}}
-      {{name}}: Joi{{#if isNumber}}.number(){{/if}}.{{type}}(){{#if required}}.required(){{/if}};
+      {{name}}: Joi{{#if isNumber}}.number(){{/if}}.{{type}}(){{#if required}}.required(){{/if}},
       {{/each}}
     }),
   }),
@@ -27,7 +27,7 @@ module.exports = {
     }),
     [Segments.BODY]: Joi.object().keys({
       {{#each entity.fields}}
-      {{name}}: Joi{{#if isNumber}}.number(){{/if}}.{{type}}().optional();
+      {{name}}: Joi{{#if isNumber}}.number(){{/if}}.{{type}}().optional(),
       {{/each}}
     }),    
   }),
